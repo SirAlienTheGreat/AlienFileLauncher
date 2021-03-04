@@ -4,7 +4,7 @@ import subprocess
 from gi.repository import GLib
 from listfiles import listfiles
 
-currentdirectory = "/hdd"
+currentdirectory = "/hdd/Anime"
 CurrentRow=0
 CurrentColumn=0
 
@@ -25,6 +25,7 @@ def NewWindow():
             
 
             grid = Gtk.Grid()
+            #grid.widget.set_hexpand()
             self.add(grid)
 
             itemsincurrentdirectory = listfiles(currentdirectory)
@@ -38,8 +39,21 @@ def NewWindow():
                 global CurrentRow
                 global CurrentColumn
                 global currentdirectory
-                self.button = Gtk.Button(label=itemsincurrentdirectory[y])
+
+                buttontext = label=itemsincurrentdirectory[y]
+                maxlinesize = 20
+                if len(buttontext) >= maxlinesize:
+                    if len(buttontext) >= 2* maxlinesize:
+                        buttontext = buttontext[:maxlinesize-1] + '\n' + buttontext[maxlinesize-1:((2*maxlinesize)-1)] + '\n' + buttontext[((2*maxlinesize)-1):]
+                    else:
+                        buttontext = buttontext[:maxlinesize-1] + '\n' + buttontext[maxlinesize-1:]
+                
+                
+                self.button = Gtk.Button(buttontext)
+                #self.button.modify_font(Pango.FontDescription("Arial"))
                 self.button.connect("clicked", self.on_button_clicked, itemsincurrentdirectory[y])
+                self.button.set_hexpand(True)
+                self.button.set_vexpand(True)
                 #self.add(self.button)
                 #grid.add(self.button)
                 #print("new button at:", str(CurrentRow), str(CurrentColumn))

@@ -28,7 +28,7 @@ def NewWindow():
             self.add(grid)
 
             itemsincurrentdirectory = listfiles(currentdirectory)
-            numberOfButtons = len(itemsincurrentdirectory)-1
+            numberOfButtons = len(itemsincurrentdirectory)
 
             NumberOfRows=5
             NumberOfColumns=int(round(numberOfButtons/NumberOfRows)+1)
